@@ -19,10 +19,17 @@ TCP порт 30000-32767 - для работы NodePort Services.
 
 ### Пример установки одного сервера с ролью Master и одного сервера с ролью Worker.  
 
+10.0.5.140 - kubernetes-master-1.heyvaldemar.net  
+10.0.6.19 - kubernetes-worker-1.heyvaldemar.net  
+
 Подключаемся к серверу, на который планируется установить роль Kubernetes Master.
 
 Присвоим имя серверу с помощью команды:
-
 ```
 sudo hostnamectl set-hostname kubernetes-master-1.heyvaldemar.net
+```
+
+Далее в файл “/etc/hosts” добавим IP-адрес и имя сервера с ролью Master с помощью команды:  
+```
+echo "10.0.5.140 kubernetes-master-1.heyvaldemar.net kubernetes-master-1" | sudo tee -a /etc/hosts
 ```
