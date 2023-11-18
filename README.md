@@ -27,9 +27,20 @@ TCP порт 30000-32767 - для работы NodePort Services.
 Присвоим имя серверу с помощью команды:
 ```
 sudo hostnamectl set-hostname kubernetes-master-1.heyvaldemar.net
-```
+```  
 
 Далее в файл “/etc/hosts” добавим IP-адрес и имя сервера с ролью Master с помощью команды:  
 ```
 echo "10.0.5.140 kubernetes-master-1.heyvaldemar.net kubernetes-master-1" | sudo tee -a /etc/hosts
 ```
+
+В файл “/etc/hosts” добавим IP-адрес и имя сервера с ролью Worker с помощью команды: 
+```
+echo "10.0.6.19 kubernetes-worker-1.heyvaldemar.net kubernetes-worker-1" | sudo tee -a /etc/hosts
+```
+
+Перезапускаю службу hostamed, чтобы внесенные изменения для имени сервера вступили в силу, с помощью команды:
+```
+sudo systemctl restart systemd-hostnamed
+```  
+
