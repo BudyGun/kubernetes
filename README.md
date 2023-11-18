@@ -188,7 +188,7 @@ kubectl get nodes
 
 ### Настройка Kubernetes Worker
 
-Присвою имя серверу с помощью команды:
+Присвою имя worker'у с помощью команды:
 ```
 sudo hostnamectl set-hostname kubernetes-worker-1.heyvaldemar.net
 ```
