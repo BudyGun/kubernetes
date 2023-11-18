@@ -2,7 +2,7 @@
 
 Установка kubernetes: https://www.heyvaldemar.net/ustanovka-kubernetes-na-ubuntu-server-22-04-lts/
 
-Нам потребуется открыть следующие порты TCP для доступа к серверу:
+Должны быт открыты следующие порты TCP для доступа к серверу:
 
 ### Kubernetes Master (Control Plane):
 
@@ -17,7 +17,7 @@ TCP порт 10257 - для работы kube-controller-manager.
 TCP порт 0250 - для работы Kubelet API.  
 TCP порт 30000-32767 - для работы NodePort Services.  
 
-Пример установки одного сервера с ролью Master и одного сервера с ролью Worker.  
+### Пример установки одного сервера с ролью Master и одного сервера с ролью Worker.  
 
 Подключаемся к серверу, на который планируется установить роль Kubernetes Master.
 
