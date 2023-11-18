@@ -22,6 +22,7 @@ TCP порт 30000-32767 - для работы NodePort Services.
 10.0.5.140 - kubernetes-master-1.heyvaldemar.net  
 10.0.6.19 - kubernetes-worker-1.heyvaldemar.net  
 
+### Настройка Kubernetes Master
 Подключаемся к серверу, на который планируется установить роль Kubernetes Master.
 
 Присвоим имя серверу с помощью команды:
@@ -72,4 +73,127 @@ br_netfilter
 EOF
 ```
 
+Загружаю модуль “overlay” с помощью команды:
+```
+sudo modprobe overlay
+```
+
+Загружаю модуль “br_netfilter” с помощью команды:
+```
+sudo modprobe br_netfilter
+```
+
+Устанавливаю параметры ядра для Kubernetes с помощью команды:
+```
+sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+```
+
+Применяю внесенные изменения с помощью команды:
+```
+sudo sysctl --system
+```
+# Установка и настройка Docker  
+```
+sudo apt update
+sudo apt install curl software-properties-common ca-certificates apt-transport-https -y
+wget -O- https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | sudo tee /etc/apt/keyrings/docker.gpg > /dev/null
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable"| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install docker-ce -y
+```
+Добавить пользователя в группу докер:
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+Проверка статуса docker:
+```
+sudo systemctl status docker
+```
+
+
+Теперь устанавливаю пакеты, необходимые для работы Kubernetes, с помощью команды:
+```
+sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates containerd.io
+```
+
+Настраиваю containerd. Выполняем команду:
+```
+containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
+```
+
+Выполняю команду:
+```
+sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+```
+
+Перезапускаю containerd, чтобы применить внесенные изменения, с помощью команды:
+```
+sudo systemctl restart containerd
+```
+
+Включаю автозапуск сервиса containerd при запуске операционной системы с помощью команды:
+```
+sudo systemctl enable containerd
+```
+
+Добавляю официальный ключ Kubernetes с помощью команды:
+```
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+```
+
+Подключаю репозиторий Kubernetes с помощью команды:
+```
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+```
+
+На момент написания этого руководства Xenial является актуальным репозиторием Kubernetes, но когда репозиторий будет доступен для Ubuntu 22.04 (Jammy Jellyfish), то нужно будет заменить слово в команде выше с “xenial” на “jammy”.
+
+Обновляю локальный индекс пакетов до последних изменений в репозиториях с помощью команды:
+```
+sudo apt update
+```
+
+Установливаю пакеты kubelet, kubeadm и kubectl с помощью команды:
+```
+sudo apt install -y kubelet kubeadm kubectl
+```
+
+Нужно запретить автоматическое обновление и удаление установленных пакетов с помощью команды:
+```
+sudo apt-mark hold kubelet kubeadm kubectl
+```
+
+Запускаю инициализацию кластера Kubernetes с помощью команды:
+```
+sudo kubeadm init --control-plane-endpoint=kubernetes-master-1.heyvaldemar.net
+```
+
+
+Для добавления еще одного сервера в кластер потребуется проделать такую же работу по установке и настройке сервера, а затем выполнить команду kubeadm join с соответствующим токеном для сервера с ролью Master или Worker.
+
+
+Далее необходимо выполнить несколько команд, чтобы начать взаимодействие с кластером.  
+Выполняем команду:
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+Посмотреть адреса мастера и сервисов можно с помощью команды:
+```
+kubectl cluster-info
+```
+
+Посмотреть список всех узлов в кластере и статус каждого узла с помощью команды:
+```
+kubectl get nodes
+```
 
