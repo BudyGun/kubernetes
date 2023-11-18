@@ -399,7 +399,7 @@ kubectl get nodes
 Вижу статусы. Узлы находятся статусе “Ready” и кластер Kubernetes готов к работе.
 
 ### Доподнительное инфо:  
-Установка kubernetes: https://www.heyvaldemar.net/ustanovka-kubernetes-na-ubuntu-server-22-04-lts/
+Установка kubernetes: https://www.heyvaldemar.net/ustanovka-kubernetes-na-ubuntu-server-22-04-lts/  
 Посмотреть открытые порты: https://losst.pro/kak-posmotret-otkrytye-porty-v-linux  
 Установка 3 мастера 2 воркера 1 баллансировщик: https://sidmid.ru/kubernetes-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-3-%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%B0-2-%D0%B2%D0%BE%D1%80%D0%BA%D0%B5%D1%80%D0%B0-1-%D0%B1%D0%B0%D0%BB%D0%BB%D0%B0%D0%BD/
 
