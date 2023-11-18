@@ -1,20 +1,5 @@
 # kubernetes
 
-Должны быт открыты следующие порты TCP для доступа к серверу:
-
-### Kubernetes Master (Control Plane):
-
-TCP порт 6443 - для работы Kubernetes API.  
-TCP порт 2379-2380 - для работы etcd server client API.  
-TCP порт 10250 - для работы Kubelet API.  
-TCP порт 10259 - для работы kube-scheduler.  
-TCP порт 10257 - для работы kube-controller-manager.  
-
-### Kubernetes Worker:  
-
-TCP порт 0250 - для работы Kubelet API.  
-TCP порт 30000-32767 - для работы NodePort Services.  
-
 ### Пример установки одного сервера с ролью Master и одного сервера с ролью Worker.  
 
 10.0.5.140 - kubernetes-master-1.heyvaldemar.net  
@@ -406,3 +391,18 @@ kubectl get nodes
 Установка kubernetes: https://www.heyvaldemar.net/ustanovka-kubernetes-na-ubuntu-server-22-04-lts/
 Посмотреть открытые порты: https://losst.pro/kak-posmotret-otkrytye-porty-v-linux
 Установка 3 мастера 2 воркера 1 баллансировщик: https://sidmid.ru/kubernetes-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-3-%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%B0-2-%D0%B2%D0%BE%D1%80%D0%BA%D0%B5%D1%80%D0%B0-1-%D0%B1%D0%B0%D0%BB%D0%BB%D0%B0%D0%BD/
+
+Должны быт открыты следующие порты TCP для доступа к серверу:
+
+### Kubernetes Master (Control Plane):
+
+TCP порт 6443 - для работы Kubernetes API.  
+TCP порт 2379-2380 - для работы etcd server client API.  
+TCP порт 10250 - для работы Kubelet API.  
+TCP порт 10259 - для работы kube-scheduler.  
+TCP порт 10257 - для работы kube-controller-manager.  
+
+### Kubernetes Worker:  
+
+TCP порт 0250 - для работы Kubelet API.  
+TCP порт 30000-32767 - для работы NodePort Services. 
