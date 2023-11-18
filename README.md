@@ -42,5 +42,34 @@ echo "10.0.6.19 kubernetes-worker-1.heyvaldemar.net kubernetes-worker-1" | sudo 
 Перезапускаю службу hostamed, чтобы внесенные изменения для имени сервера вступили в силу, с помощью команды:
 ```
 sudo systemctl restart systemd-hostnamed
-```  
+```
+
+Проверяю корректность имени сервера с помощью команды:
+```
+hostname
+```
+
+Заменю текущий процесс оболочки на новый с помощью команды:
+```
+exec bash
+```
+
+Оттключаю файл подкачки с помощью команды:
+```
+sudo swapoff -a
+```
+
+Чтобы файл подкачи был отключен и после перезагрузки, выполню команду:
+```
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+```
+
+Загружаю модули ядра:
+```
+sudo tee /etc/modules-load.d/containerd.conf <<EOF
+overlay
+br_netfilter
+EOF
+```
+
 
