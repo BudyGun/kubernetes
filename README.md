@@ -389,6 +389,10 @@ curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/ca
 ```
 cat calico.yaml 
 ```
+Запускаю calico:
+```
+kubectl apply -f calico.yaml
+```
 
 Проверяю статус подов в пространстве имен kube-system с помощью команды:
 ```
