@@ -383,7 +383,7 @@ kubectl get nodes
 
 Загружаю на мастере манифест Calico с помощью команды:
 ```
-curl curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/calico.yaml -O
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/calico.yaml -O
 ```
 Проверяю, что скачанный манифест содержит корректную информацию:
 ```
